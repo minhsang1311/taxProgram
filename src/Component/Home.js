@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { message } from 'antd';
 
@@ -9,10 +9,7 @@ function Home() {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/customer', {
-      customerName,
-      customerPhone
-    })
+    axios.post('http://localhost:8080/customer', {customerName, customerPhone})
     .then((res) => {
       messageApi.open({
         type: 'success',
@@ -33,9 +30,13 @@ function Home() {
   };
 
   const [error, setError] = useState('');
+  const handleInputChange = (event) => {
+    setCustomerPhone(event.target.value);
+    validatePhoneNumber(event.target.value);
+  };
 
   const validatePhoneNumber = (value) => {
-    // Biểu thức chính quy cho số điện thoại Việt Nam (ví dụ)
+    // Regular expression for Vietnamese phone numbers (adjust as needed)
     const phoneNumberRegex = /^(0)(3|5|7|8|9)[0-9]{8}$/;
     if (!phoneNumberRegex.test(value)) {
       setError('Số điện thoại không hợp lệ.');
@@ -55,10 +56,20 @@ function Home() {
       <img src='./images/1.png'/>
     </div>
     </section>
+    <section className='home-wrapper-2'>
+    <div className="container-xxl">
+      <img src='./images/11.png'/>
+    </div>
+    </section>
+    <section className='home-wrapper-3'>
+    <div className="container-xxl">
+      <img src='./images/12.png'/>
+    </div>
+    </section>
     <section className='home-wrapper-2' style={{backgroundColor: 'white'}}>
     <div className="container-xxl">
       <img src='./images/2.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button type="button" onClick={handleClick} class="btn btn-warning">ĐĂNG KÍ NGAY</button>
       </div>
     </div>
@@ -66,7 +77,7 @@ function Home() {
     <section className='home-wrapper-3'>
     <div className="container-xxl">
       <img src='./images/3.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button type="button" onClick={handleClick}  class="btn g">ĐĂNG KÍ NGAY</button>
       </div>
     </div>
@@ -74,7 +85,7 @@ function Home() {
     <section className='home-wrapper-4' style={{backgroundColor: 'white'}}>
     <div className="container-xxl">
       <img src='./images/4.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button type="button" onClick={handleClick}  class="btn">ĐĂNG KÍ NGAY</button>
       </div>
     </div>
@@ -82,7 +93,7 @@ function Home() {
     <section className='home-wrapper-5'>
     <div className="container-xxl">
       <img src='./images/5.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button type="button" onClick={handleClick}  class="btn">ĐĂNG KÍ NGAY</button>
       </div>
     </div>
@@ -90,7 +101,7 @@ function Home() {
     <section className='home-wrapper-6' style={{backgroundColor: 'white'}}>
     <div className="container-xxl">
       <img src='./images/6.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button type="button" onClick={handleClick}  class="btn">ĐĂNG KÍ NGAY</button>
       </div>
     </div>
@@ -98,7 +109,7 @@ function Home() {
     <section className='home-wrapper-7'>
     <div className="container-xxl">
       <img src='./images/7.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button type="button" onClick={handleClick}  class="btn">ĐĂNG KÍ NGAY</button>
       </div>
     </div>
@@ -106,9 +117,9 @@ function Home() {
     <section ref={mySectionRef} className='home-wrapper-8'>
     <div className="container-xxl">
       <img src='./images/8.png'/>
-      <div className='button-1 pt-5 pb-5'>
+      <div className='button-1 pt-3 pb-3'>
       <button class="btn" data-bs-toggle="modal" data-bs-target="#myModal">
-        ĐĂNG KÍ NGAY
+        ĐĂNG KÍ TẠI ĐÂY
       </button>
       </div>
     </div>
@@ -117,7 +128,7 @@ function Home() {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Đăng kí ngay</h4>
+        <h4 class="modal-title">Điền thông tin đăng ki</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
@@ -134,7 +145,7 @@ function Home() {
           className="form-control" id="phone"
           placeholder="Nhập số điện thoại của bạn"
           name="phone"
-          onChange={(e) => setCustomerPhone(e.target.value)}
+          onChange={handleInputChange}
         />
         {error && <div className="text-danger pt-2">{error}</div>}
       </div>
@@ -152,23 +163,32 @@ function Home() {
       <img src='./images/9.png'/>
     </div>
     </section>
+    <section className='home-wrapper-3'>
+    <div className="container-xxl">
+      <img src='./images/13.png'/>
+      <div className='button-1 pt-3 pb-3'>
+      <button type="button" onClick={handleClick}  class="btn g">ĐĂNG KÍ NGAY</button>
+      </div>
+    </div>
+    </section>
     {contextHolder}
     <div class="hotline-phone-ring-wrap">
 	<div class="hotline-phone-ring">
 		<div class="hotline-phone-ring-circle"></div>
 		<div class="hotline-phone-ring-circle-fill"></div>
 		<div class="hotline-phone-ring-img-circle">
-		<a href="tel:0987654321" class="pps-btn-img">
+		<a href="tel:0382726515" class="pps-btn-img">
 			<img src="https://wiki.minhduy.vn/wp-content/uploads/2022/07/icon-call-nh.png" alt="Gọi điện thoại" width="50"/>
 		</a>
 		</div>
 	</div>
 	<div class="hotline-bar">
 		<a href="tel:0382726515">
-			<span class="text-hotline">0982 726 515</span>
+			<span class="text-hotline">0382 726 515</span>
 		</a>
 	</div>
 </div>
+
     </div>
   );
 }
