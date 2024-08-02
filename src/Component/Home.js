@@ -9,7 +9,7 @@ function Home() {
 
   const handleCreate = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8080/customer', {customerName, customerPhone})
+    axios.post('https://tukiunitax1.onrender.com/customer', {customerName, customerPhone})
     .then((res) => {
       messageApi.open({
         type: 'success',
